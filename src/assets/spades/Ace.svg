@@ -11,8 +11,8 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="167.0869141pt"
-   height="242.6669922pt"
+   width="100%"
+   height="100%"
    viewBox="0 0 167.0869141 242.6669922"
    xml:space="preserve"
    id="svg2"
@@ -81,9 +81,9 @@
      inkscape:collect="always"
      id="filter3803"
      x="-0.33068925"
-     width="1.6613785"
+     width="100%"
      y="-0.16436553"
-     height="1.3287311"><feGaussianBlur
+     height="100%"><feGaussianBlur
        inkscape:collect="always"
        stdDeviation="14.131424"
        id="feGaussianBlur3805" /></filter><radialGradient
@@ -108,9 +108,9 @@
      inkscape:collect="always"
      id="filter3803-1"
      x="-0.33068925"
-     width="1.6613785"
+     width="100%"
      y="-0.16436553"
-     height="1.3287311"><feGaussianBlur
+     height="100%"><feGaussianBlur
        inkscape:collect="always"
        stdDeviation="14.131424"
        id="feGaussianBlur3805-8" /></filter><radialGradient
@@ -135,9 +135,9 @@
      inkscape:collect="always"
      id="filter3803-73"
      x="-0.33068925"
-     width="1.6613785"
+     width="100%"
      y="-0.16436553"
-     height="1.3287311"><feGaussianBlur
+     height="100%"><feGaussianBlur
        inkscape:collect="always"
        stdDeviation="14.131424"
        id="feGaussianBlur3805-2" /></filter></defs><sodipodi:namedview
