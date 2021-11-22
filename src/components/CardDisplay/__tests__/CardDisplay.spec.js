@@ -14,7 +14,7 @@ it("Should render card reverse on startup", () => {
 });
 
 // just validate that it is not rendering reverse, but a different card
-it("Should render next card when active card value changes", async () => {
+it("Should render new card when card drawn", async () => {
   const drawBtn = screen.getByRole("button", { name: /Draw/ });
   fireEvent.click(drawBtn);
 
@@ -25,27 +25,27 @@ it("Should render next card when active card value changes", async () => {
   expect(reverseCard).toBe(null);
 });
 
-it("Should render card reverse after deck shuffle", async () => {
-  // draw card
+it("Should render empty message when no cards remain in deck", async () => {
+  let cutButton = await waitFor(() =>
+    screen.findByRole("button", { name: /Cut/ })
+  );
+  fireEvent.click(cutButton);
+
+  await waitFor(() => {
+    screen.getByLabelText("confirm-cut-dialog");
+  });
+
+  fireEvent.input(screen.getByLabelText("card-amount-input"), {
+    target: {
+      value: 52,
+    },
+  });
+  const cutDeckBtn = screen.getByLabelText("cut-designated-amt-btn");
+  fireEvent.click(cutDeckBtn);
+
   const drawBtn = screen.getByRole("button", { name: /Draw/ });
   fireEvent.click(drawBtn);
+  fireEvent.click(drawBtn);
 
-  // check if reverse card being rendered
-  let reverseCard = await waitFor(() =>
-    screen.queryByLabelText(/none_reverse/)
-  );
-
-  // different card should be being rendered
-  expect(reverseCard).toBe(null);
-
-  // shuffle deck
-  const shuffleBtn = screen.getByRole("button", { name: /Shuffle/ });
-  fireEvent.click(shuffleBtn);
-
-  reverseCard = await waitFor(() => screen.queryByLabelText(/none_reverse/));
-
-  // reverse card should be being rendered
-  expect(reverseCard).toBeInTheDocument();
+  expect(screen.getByText("No cards remaining")).toBeInTheDocument();
 });
-
-it.todo("Should render empty message when no cards remain in deck");

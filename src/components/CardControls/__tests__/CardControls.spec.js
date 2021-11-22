@@ -15,15 +15,61 @@ it("should render all control buttons on startup", () => {
   expect(screen.getByText("Draw")).toBeInTheDocument();
 });
 
-it.todo(
-  "should prompt user if shuffle clicked a second time and deck not yet empty"
-);
+it("Should prompt before reshuffle after card drawn", async () => {
+  // draw card
+  const drawBtn = screen.getByRole("button", { name: /Draw/ });
+  fireEvent.click(drawBtn);
 
-it.todo("should prompt user to cut cards when Cut clicked");
+  // check if reverse card being rendered
+  let reverseCard = await waitFor(() =>
+    screen.queryByLabelText(/none_reverse/)
+  );
 
-it.todo(
-  "should disable Cut button if cards have been cut but deck not yet empty"
-);
+  // different card should be being rendered
+  expect(reverseCard).toBe(null);
+
+  // click shuffle button
+  const shuffleBtn = screen.getByRole("button", { name: /Shuffle/ });
+  fireEvent.click(shuffleBtn);
+
+  // shuffle confirm dialog will be present
+  await waitFor(() => {
+    expect(
+      screen.getByLabelText("confirm-reshuffle-dialog")
+    ).toBeInTheDocument();
+  });
+});
+
+it("Should prompt before cut deck", async () => {
+  const cutBtn = screen.getByRole("button", { name: /Cut/ });
+  fireEvent.click(cutBtn);
+
+  // shuffle confirm dialog will be present
+  await waitFor(() => {
+    expect(screen.getByLabelText("confirm-cut-dialog")).toBeInTheDocument();
+  });
+});
+
+it("should disable Cut button if cards have been cut but deck not yet empty", async () => {
+  let cutButton = await waitFor(() =>
+    screen.findByRole("button", { name: /Cut/ })
+  );
+  fireEvent.click(cutButton);
+
+  await waitFor(() => {
+    expect(screen.getByLabelText("confirm-cut-dialog")).toBeInTheDocument();
+  });
+
+  fireEvent.input(screen.getByLabelText("card-amount-input"), {
+    target: {
+      value: 10,
+    },
+  });
+  const cutDeckBtn = screen.getByLabelText("cut-designated-amt-btn");
+  fireEvent.click(cutDeckBtn);
+
+  await waitFor(() => expect(cutButton).toBeDisabled());
+});
 
 it("should disable Cut button if deck has been shuffled and first card has been drawn", async () => {
   // draw card

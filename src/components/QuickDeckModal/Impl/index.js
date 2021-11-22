@@ -1,3 +1,2 @@
-require("./quick-deck-modal.scss");
-export { default as CutModal } from "./Impl/CutModal";
-export { default as ShuffleModal } from "./Impl/ShuffleModal";
+export { default as CutModal } from "./CutModal";
+export { default as ShuffleModal } from "./ShuffleModal";

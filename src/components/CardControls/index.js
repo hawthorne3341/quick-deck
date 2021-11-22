@@ -1,2 +1,2 @@
-require('./card-controls.scss')
+require("./card-controls.scss");
 export { default } from "./CardControls";

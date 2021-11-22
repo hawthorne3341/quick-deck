@@ -13,6 +13,7 @@ const initialState = {
   currentCard: reverse,
   deckCut: false,
   firstCardDrawn: false,
+  cardsRemaining: true,
   showShuffleModal: false,
   showCutModal: false,
 };
@@ -24,7 +25,9 @@ export default function deckReducer(state = initialState, action) {
         ...state,
         currentDeck: shuffleDeck(),
         currentCard: initialState.currentCard,
+        deckCut: initialState.deckCut,
         firstCardDrawn: initialState.firstCardDrawn,
+        cardsRemaining: initialState.cardsRemaining,
       };
 
     case CUT_DECK:
@@ -35,10 +38,12 @@ export default function deckReducer(state = initialState, action) {
       };
 
     case DRAW_CARD:
+      const drawnCard = drawCard(state.currentDeck);
       return {
         ...state,
-        currentCard: drawCard(state.currentDeck),
+        currentCard: drawnCard,
         firstCardDrawn: !!state.firstCardDrawn ? state.firstCardDrawn : true,
+        cardsRemaining: !!drawnCard,
       };
 
     case TOGGLE_SHUFFLE:

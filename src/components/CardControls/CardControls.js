@@ -2,7 +2,7 @@ import React from "react";
 import useCardControls from "./useCardControls";
 
 const CardControls = () => {
-  const { cutDisabled, handleShuffle, handleCut, handleDraw } =
+  const { cutDisabled, drawDisabled, handleShuffle, handleCut, handleDraw } =
     useCardControls();
 
   return (
@@ -13,7 +13,7 @@ const CardControls = () => {
       <button className="btn" disabled={cutDisabled} onClick={handleCut}>
         Cut
       </button>
-      <button className="btn" onClick={handleDraw}>
+      <button className="btn" disabled={drawDisabled} onClick={handleDraw}>
         Draw
       </button>
     </div>

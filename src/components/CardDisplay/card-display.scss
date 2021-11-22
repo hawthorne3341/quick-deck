@@ -1,8 +1,11 @@
 .app {
   .card-display {
-    height: 35vh;
-    width: 15vw;
+    height: 60vh;
+    width: 35vw;
     margin-bottom: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .card {
       height: 100%;
@@ -17,5 +20,10 @@
         opacity: 1;
       }
     }
+
+    .deck-placeholder {
+      font-weight: 600;
+    }
+
   }
 }

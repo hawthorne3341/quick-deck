@@ -19,6 +19,8 @@ it("should shuffle cards on shuffle", async () => {
   const deckAfterShuffle = deckState("currentDeck");
 
   expect(arraysEqual(deckBeforeShuffle, deckAfterShuffle)).toBe(false);
+  expect(deckState("firstCardDrawn")).toBe(false);
+  expect(deckState("deckCut")).toBe(false);
 });
 
 it("should cut x cards on cut", async () => {
@@ -30,6 +32,7 @@ it("should cut x cards on cut", async () => {
   const deckAfterCut = deckState("currentDeck").slice(0);
 
   expect(arraysEqual(deckAfterCut, deckBeforeCut.splice(26))).toBe(true);
+  expect(deckState("deckCut")).toBe(true);
 });
 
 it("should draw next card on draw", async () => {
@@ -37,4 +40,28 @@ it("should draw next card on draw", async () => {
 
   expect(deckState("currentCard")).not.toEqual(reverse);
   expect(deckState("firstCardDrawn")).toBe(true);
+});
+
+it("should toggle showCutModal", async () => {
+  expect(deckState("showCutModal")).toBe(false);
+  await fakeStore.dispatch(deckActions.toggleCut());
+  expect(deckState("showCutModal")).toBe(true);
+  await fakeStore.dispatch(deckActions.toggleCut());
+  expect(deckState("showCutModal")).toBe(false);
+});
+
+it("should toggle showShuffleModal", async () => {
+  expect(deckState("showShuffleModal")).toBe(false);
+  await fakeStore.dispatch(deckActions.toggleShuffle());
+  expect(deckState("showShuffleModal")).toBe(true);
+  await fakeStore.dispatch(deckActions.toggleShuffle());
+  expect(deckState("showShuffleModal")).toBe(false);
+});
+
+it("cardsRemaining should be false if no cards left in deck", async () => {
+  await fakeStore.dispatch(deckActions.cutDeck(52));
+  await fakeStore.dispatch(deckActions.drawCard());
+  await fakeStore.dispatch(deckActions.drawCard());
+
+  expect(deckState("cardsRemaining")).toBe(false);
 });

@@ -1,21 +1,25 @@
 import React from "react";
+import { toast } from "react-toastify";
 import QuickDeckModal from "../QuickDeckModal";
 import { useDispatch, useSelector } from "react-redux";
 import { shuffleDeck, toggleShuffle } from "store/actions";
 import { selectShowShuffleModal } from "store/selectors";
 
-const CutModal = () => {
+const ShuffleModal = () => {
   const dispatch = useDispatch();
-  const showCutModal = useSelector(selectShowShuffleModal);
+  const showShuffleModal = useSelector(selectShowShuffleModal);
 
   const handleShuffleDeck = () => {
+    dispatch(toggleShuffle());
     dispatch(shuffleDeck());
+    toast.info("Deck shuffled");
   };
 
   const handleToggleShuffle = () => {
     dispatch(toggleShuffle());
   };
-  const cutModalBody = (
+
+  const shuffleModalBody = (
     <>
       <div className="modal-overlay" />
       <div
@@ -23,25 +27,38 @@ const CutModal = () => {
         role="dialog"
         aria-modal={true}
         aria-hidden={true}
+        aria-label="confirm-reshuffle-dialog"
         tabIndex={-1}
       >
         <div className="modal">
           <div className="modal-header">
-            <h5 className="modal-title">Confirm Shuffle</h5>
-            <span className="modal-description">Proceed with shuffle?</span>
+            <div className="modal-close-bar">
+              <div
+                className="modal-close-icon"
+                style={{
+                  background: `url(${require("assets/close-modal.svg")}) no-repeat center`,
+                }}
+                onClick={handleToggleShuffle}
+              />
+            </div>
+            <span className="modal-description">Re-Shuffle Deck?</span>
           </div>
-          <button onClick={handleShuffleDeck} className="modal-button">
-            Cut Deck
-          </button>
-          <button onClick={handleToggleShuffle} className="modal-button">
-            Close
-          </button>
+          <div className="modal-button-row">
+            <button onClick={handleShuffleDeck} className="modal-button">
+              Re-Shuffle
+            </button>
+            <button onClick={handleToggleShuffle} className="modal-button">
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </>
   );
 
-  return <QuickDeckModal isVisible={showCutModal} modalBody={cutModalBody} />;
+  return (
+    <QuickDeckModal isVisible={showShuffleModal} modalBody={shuffleModalBody} />
+  );
 };
 
-export default CutModal;
+export default ShuffleModal;

@@ -4,6 +4,7 @@ import useCardDisplay from "./useCardDisplay";
 const CardDisplay = () => {
   const { cardLabel, cardImage, cardsRemaining } = useCardDisplay();
 
+  debugger;
   return (
     <div className="card-display">
       {!!cardsRemaining ? (
@@ -17,7 +18,7 @@ const CardDisplay = () => {
           }}
         />
       ) : (
-        <div>No cards remaining</div>
+        <div className="deck-placeholder">No cards remaining</div>
       )}
     </div>
   );
