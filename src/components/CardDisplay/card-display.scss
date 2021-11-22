@@ -1,0 +1,21 @@
+.app {
+  .card-display {
+    height: 35vh;
+    width: 15vw;
+    margin-bottom: 5vh;
+
+    .card {
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      animation: visibleCard 0.2s ease-in;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes visibleCard {
+      to {
+        opacity: 1;
+      }
+    }
+  }
+}
