@@ -6,6 +6,11 @@ module.exports = {
   resolve: {
     modules: [path.resolve(__dirname, "src"), "node_modules"],
   },
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
+  },
   output: {
     path: path.join(__dirname, "/dist"),
     filename: "index.bundle.js",
